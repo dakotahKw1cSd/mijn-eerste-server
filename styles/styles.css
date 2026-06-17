@@ -1,0 +1,14 @@
+.hoofd-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+}
+
+@media (min-width: 768px) {
+  .hoofd-nav {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+  }
+}
