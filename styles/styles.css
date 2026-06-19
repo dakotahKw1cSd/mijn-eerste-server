@@ -363,3 +363,69 @@ footer {
     color:#3b82f6;
     font-weight:bold;
 }
+
+.profile-card{
+    border:none;
+    border-radius:15px;
+}
+
+.profile-avatar{
+    width:80px;
+    height:80px;
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #4f8df7,
+        #9333ea
+    );
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:35px;
+}
+
+.goal-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.setting-item{
+    cursor:pointer;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+.bottom-nav i{
+    font-size:20px;
+    display:block;
+    margin-bottom:4px;
+}
+
+.profile-avatar i{
+    font-size:40px;
+}
+
+.text-purple{
+    color:#9333ea;
+}
+
+.taal {
+    border: #198754 2px solid;
+    border-radius: 5px;
+    background:linear-gradient(
+        135deg,
+        #4f8df7,
+        #9333ea
+    );
+}

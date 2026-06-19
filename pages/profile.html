@@ -1,11 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="../styles/styles.css">
+
+    <title>Profiel</title>
 </head>
 <body>
-    
+
+<div class="app-header">
+    <h2>Health Tracker</h2>
+    <small>Friday, May 8, 2026</small>
+</div>
+
+<div class="container py-3">
+
+    <!-- Profielkaart -->
+    <div class="card p-4 text-center profile-card">
+
+        <div class="profile-avatar">
+    <i class="bi bi-person"></i>
+</div>
+
+        <h5 class="mt-3 mb-1">John Doe</h5>
+
+        <small class="text-muted">
+            john.doe@email.com
+        </small>
+
+    </div>
+
+    <!-- Goals -->
+    <div class="card p-3 mt-3">
+
+        <h5>Health Goals</h5>
+
+        <div class="goal-row">
+            <span>Daily Steps Goal</span>
+            <strong>10,000</strong>
+        </div>
+
+        <hr>
+
+        <div class="goal-row">
+            <span>Water Goal</span>
+            <strong>8 glasses</strong>
+        </div>
+
+        <hr>
+
+        <div class="goal-row">
+            <span>Sleep Goal</span>
+            <strong>8 hours</strong>
+        </div>
+
+        <hr>
+
+        <div class="goal-row">
+            <span>Weight Goal</span>
+            <strong>65 kg</strong>
+        </div>
+
+    </div>
+
+    <!-- Settings -->
+    <div class="card p-3 mt-3">
+
+        <h5>Settings</h5>
+
+        <div class="setting-item">
+            Notifications
+        </div>
+
+        <hr>
+
+        <div class="setting-item">
+            Units & Preferences
+        </div>
+
+        <hr>
+
+        <div class="setting-item">
+            Connected Apps
+        </div>
+
+    </div>
+
+</div>
+
+<footer class="bottom-nav">
+
+    <a href="../index.html">
+        <i class="bi bi-house-fill"></i><br>
+        Home
+    </a>
+
+    <a href="stats.html">
+        <i class="bi bi-bar-chart-fill"></i><br>
+        Stats
+    </a>
+
+    <a href="profile.html">
+        <i class="bi bi-person-fill"></i><br>
+        Profile
+    </a>
+
+</footer>
+
 </body>
 </html>
