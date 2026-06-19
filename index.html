@@ -17,24 +17,132 @@
     <title>mijn health app</title>
 </head>
 <body>
-    <header>
-    <button class="menu-toggle">&#9776;</button>
 
-    <button id="taal-knop">English</button>
+<div class="app-header">
+    <h2>Health Tracker</h2>
+    <small>Friday, May 8, 2026</small>
+</div>
 
-    <nav class="nav" id="main-nav">
-        <a id="profiel-link" href="../mijn eerste server/pages/profile.html">Profiel</a>
-        <a id="stats-link" href="../mijn eerste server/pages/stats.html">Stats</a>
-    </nav>
-    </header>
-    <main>
-        <form id="taak-formulier">
-            <input id="taak-titel" type="text" placeholder="Wat moet je doen?" required>
-            <input id="taak-datum" type="date" required>
-            <button id="toevoegen-knop" type="submit">Toevoegen</button>
-        </form>
-        <ul id="taken-lijst"></ul>
-    </main>
-    <script src="../mijn eerste server/scripts/app.js"></script>
+<div class="container py-3">
+
+    <div class="row g-3">
+
+        <div class="col-6">
+            <div class="card health-card">
+                <h6>💧 Water</h6>
+                <h3>6/8</h3>
+                <small>glasses</small>
+
+                <div class="progress mt-2">
+                    <div class="progress-bar bg-primary" style="width:75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card health-card">
+                <h6>👣 Steps</h6>
+                <h3>7,842</h3>
+                <small>/10,000</small>
+
+                <div class="progress mt-2">
+                    <div class="progress-bar bg-success" style="width:78%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card health-card">
+                <h6>🌙 Sleep</h6>
+                <h3>7.5h</h3>
+                <small>last night</small>
+
+                <div class="progress mt-2">
+                    <div class="progress-bar bg-info" style="width:90%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card health-card">
+                <h6>⚖️ Weight</h6>
+                <h3>68.5kg</h3>
+                <small>-0.3kg</small>
+
+                <div class="progress mt-2">
+                    <div class="progress-bar bg-warning" style="width:85%"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card mt-3 p-3">
+
+        <h5>Quick Actions</h5>
+
+        <div class="row mt-2">
+            <div class="col-6">
+                <button class="btn btn-primary w-100">
+                    Add Water
+                </button>
+            </div>
+
+            <div class="col-6">
+                <button class="btn btn-success w-100">
+                    Add Steps
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card mt-3 p-3">
+
+        <h5>Weekly Progress</h5>
+
+        <div class="chart">
+            <div style="height:70%"></div>
+            <div style="height:80%"></div>
+            <div style="height:60%"></div>
+            <div style="height:90%"></div>
+            <div style="height:65%"></div>
+            <div style="height:50%"></div>
+            <div style="height:75%"></div>
+        </div>
+
+    </div>
+
+    <div class="card mt-3 p-3">
+
+        <h5>Recent Activity</h5>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">💧 Drank 2 glazen water</li>
+            <li class="list-group-item">🏃 30 minuten gewandeld</li>
+            <li class="list-group-item">👣 10.000 stappen gehaald</li>
+            <li class="list-group-item">🌙 7.5 uur geslapen</li>
+        </ul>
+
+    </div>
+
+</div>
+
+<footer class="bottom-nav">
+
+    <a href="index.html" class="active">
+        🏠<br>Home
+    </a>
+
+    <a href="pages/stats.html">
+        📊<br>Stats
+    </a>
+
+    <a href="pages/profile.html">
+        👤<br>Profile
+    </a>
+
+</footer>
+
 </body>
 </html>

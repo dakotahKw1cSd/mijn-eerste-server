@@ -307,3 +307,59 @@ footer {
     z-index: 100;
     font-family: var(--font-body);
 }
+
+.app-header{
+    background: linear-gradient(90deg,#3b82f6,#9333ea);
+    color:white;
+    padding:20px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+
+.health-card{
+    border:none;
+    border-radius:15px;
+    padding:15px;
+}
+
+.health-card h3{
+    margin:0;
+    color:black;
+}
+
+.chart{
+    height:150px;
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+}
+
+.chart div{
+    flex:1;
+    background:#4f8df7;
+    border-radius:5px 5px 0 0;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:white;
+    border-top:1px solid #ddd;
+    display:flex;
+    justify-content:space-around;
+    padding:10px;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:#666;
+    text-align:center;
+    font-size:14px;
+}
+
+.bottom-nav a.active{
+    color:#3b82f6;
+    font-weight:bold;
+}
