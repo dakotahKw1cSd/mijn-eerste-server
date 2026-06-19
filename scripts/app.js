@@ -1,143 +1,144 @@
-const toggleButton = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
 
-// Menu
-toggleButton.addEventListener('click', () => {
-  nav.classList.toggle('is-open');
+const formulier =
+document.getElementById("activiteit-form");
 
-  const isExpanded = nav.classList.contains('is-open');
-  toggleButton.setAttribute('aria-expanded', isExpanded);
+const lijst =
+document.getElementById("activiteiten-lijst");
+
+let activiteiten =
+JSON.parse(localStorage.getItem("activiteiten"))
+|| [];
+
+function toonActiviteiten() {
+
+    lijst.innerHTML = "";
+
+    activiteiten.forEach((item, index) => {
+
+        lijst.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between">
+                ${item}
+                <button
+                    class="btn btn-danger btn-sm"
+                    onclick="verwijderActiviteit(${index})">
+                    X
+                </button>
+            </li>
+        `;
+    });
+}
+
+formulier.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const input =
+    document.getElementById("activiteit-input");
+
+    activiteiten.push(input.value);
+
+    localStorage.setItem(
+        "activiteiten",
+        JSON.stringify(activiteiten)
+    );
+
+    input.value = "";
+
+    toonActiviteiten();
+
 });
 
-// Vertalingen
+function verwijderActiviteit(index){
+
+    activiteiten.splice(index, 1);
+
+    localStorage.setItem(
+        "activiteiten",
+        JSON.stringify(activiteiten)
+    );
+
+    toonActiviteiten();
+}
+
+toonActiviteiten();
+
 const teksten = {
-  nl: {
-    titel: 'Mijn Health App',
-    placeholder: 'Wat moet je doen?',
-    toevoegen: 'Toevoegen',
-    verwijderen: 'Verwijder',
-    profiel: 'Profiel',
-    stats: 'Statistieken',
-    geenTaken: 'Nog geen taken.',
-    taalKnop: 'English'
-  },
-  en: {
-    titel: 'My Health App',
-    placeholder: 'What do you need to do?',
-    toevoegen: 'Add',
-    verwijderen: 'Delete',
-    profiel: 'Profile',
-    stats: 'Statistics',
-    geenTaken: 'No tasks yet.',
-    taalKnop: 'Nederlands'
-  }
+
+    nl: {
+        activiteitTitel: "Nieuwe activiteit",
+        placeholder: "Wat ga je doen?",
+        toevoegen: "Toevoegen",
+        recent: "Recente Activiteiten",
+        home: "Home",
+        stats: "Statistieken",
+        profile: "Profiel",
+        taalKnop: "English"
+    },
+
+    en: {
+        activiteitTitel: "New Activity",
+        placeholder: "What are you going to do?",
+        toevoegen: "Add",
+        recent: "Recent Activity",
+        home: "Home",
+        stats: "Statistics",
+        profile: "Profile",
+        taalKnop: "Nederlands"
+    }
 };
 
-let taal = localStorage.getItem('taal') || 'nl';
+let taal =
+localStorage.getItem("taal") || "nl";
 
-// Taken ophalen
-function getTaken() {
-  const data = localStorage.getItem('taken');
-  return data ? JSON.parse(data) : [];
-}
-
-// Taken opslaan
-function saveTaken(taken) {
-  localStorage.setItem('taken', JSON.stringify(taken));
-}
-
-// Taal aanpassen
 function veranderTaal() {
-  document.title = teksten[taal].titel;
 
-  document.querySelector('#taak-titel').placeholder =
-    teksten[taal].placeholder;
+    document.getElementById("activiteit-titel")
+        .textContent =
+        teksten[taal].activiteitTitel;
 
-  document.querySelector('#toevoegen-knop').textContent =
-    teksten[taal].toevoegen;
+    document.getElementById("activiteit-input")
+        .placeholder =
+        teksten[taal].placeholder;
 
-  document.querySelector('#profiel-link').textContent =
-    teksten[taal].profiel;
+    document.getElementById("toevoegen-knop")
+        .textContent =
+        teksten[taal].toevoegen;
 
-  document.querySelector('#stats-link').textContent =
-    teksten[taal].stats;
+    document.getElementById("recent-titel")
+        .textContent =
+        teksten[taal].recent;
 
-  document.querySelector('#taal-knop').textContent =
-    teksten[taal].taalKnop;
+    document.getElementById("home-link")
+        .textContent =
+        teksten[taal].home;
 
-  toonItems();
+    document.getElementById("stats-link")
+        .textContent =
+        teksten[taal].stats;
+
+    document.getElementById("profile-link")
+        .textContent =
+        teksten[taal].profile;
+
+    document.getElementById("taal-knop")
+        .textContent =
+        teksten[taal].taalKnop;
 }
 
-// Taken tonen
-function toonItems() {
-  const taken = getTaken();
-  const lijst = document.querySelector('#taken-lijst');
+document
+.getElementById("taal-knop")
+.addEventListener("click", () => {
 
-  if (taken.length === 0) {
-    lijst.innerHTML = `<li>${teksten[taal].geenTaken}</li>`;
-    return;
-  }
+    taal = taal === "nl"
+        ? "en"
+        : "nl";
 
-  lijst.innerHTML = taken.map(t => `
-    <li data-id="${t.id}">
-      ${t.titel}
-      <small>${t.datum}</small>
-      <button class="verwijder-btn btn btn-danger btn-sm">
-        ${teksten[taal].verwijderen}
-      </button>
-    </li>
-  `).join('');
-}
-
-// Formulier
-const formulier = document.querySelector('#taak-formulier');
-
-formulier.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  const titel = document.querySelector('#taak-titel').value.trim();
-  const datum = document.querySelector('#taak-datum').value;
-
-  if (!titel || !datum) return;
-
-  const taken = getTaken();
-
-  taken.push({
-    id: Date.now(),
-    titel,
-    datum
-  });
-
-  saveTaken(taken);
-  toonItems();
-  formulier.reset();
-});
-
-// Verwijderen
-document.querySelector('#taken-lijst').addEventListener('click', function(event) {
-  if (event.target.classList.contains('verwijder-btn')) {
-
-    const id = Number(
-      event.target.parentElement.dataset.id
+    localStorage.setItem(
+        "taal",
+        taal
     );
 
-    const taken = getTaken().filter(
-      taak => taak.id !== id
-    );
-
-    saveTaken(taken);
-    toonItems();
-  }
+    veranderTaal();
 });
 
-// Taal wisselen
-document.querySelector('#taal-knop').addEventListener('click', () => {
-  taal = taal === 'nl' ? 'en' : 'nl';
-
-  localStorage.setItem('taal', taal);
-
-  veranderTaal();
-});
-
-// Start
 veranderTaal();
