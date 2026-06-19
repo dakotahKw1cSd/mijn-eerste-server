@@ -28,9 +28,14 @@ function toonItems() {
     lijst.innerHTML = '<li>Nog geen taken.</li>';
     return;
   }
-  lijst.innerHTML = taken
-    .map(t => `<li data-id="${t.id}">${t.titel} <small>${t.datum}</small></li>`)
-    .join('');
+lijst.innerHTML = taken
+  .map(t => `
+    <li data-id="${t.id}">
+      ${t.titel} <small>${t.datum}</small>
+      <button class="verwijder-btn">Verwijder</button>
+    </li>
+  `)
+  .join('');
 }
 
 formulier.addEventListener('submit', function(event) {
@@ -48,3 +53,17 @@ formulier.addEventListener('submit', function(event) {
 
 // Direct bij laden van de pagina
 toonItems();
+document.querySelector('#taken-lijst').addEventListener('click', function(event) {
+  if (event.target.classList.contains('verwijder-btn')) {
+    
+    const li = event.target.parentElement;
+    const id = Number(li.dataset.id);
+
+    let taken = getTaken();
+
+    taken = taken.filter(taak => taak.id !== id);
+
+    saveTaken(taken);
+    toonItems();
+  }
+});
