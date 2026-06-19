@@ -12,3 +12,87 @@
     padding: 0;
   }
 }
+
+.menu-toggle {
+    /* Standaard Mobile-First weergave */
+    display: block; /* Zorgt ervoor dat deze zichtbaar is op mobiel */
+    
+    /* Afmetingen en Vormgeving */
+    width: 3rem; 
+    height: 3rem;
+    padding: 0;
+    margin-left: auto; /* Zorgt dat hij aan de rechterkant van de header staat */
+
+    /* Kleuren en Neon-stijl */
+    background-color: var(--clr-dark-component); /* Donkere basis */
+    color: var(--clr-accent-bright); /* Elektrisch Blauw voor het '☰'-symbool */
+    border: 2px solid var(--clr-accent-bright); /* Felle blauwe rand */
+    border-radius: var(--border-radius); /* Past bij de rest van je elementen */
+    
+    /* Schaduw/Glow effect */
+    box-shadow: 0 0 8px rgba(0, 119, 255, 0.7); 
+
+    /* Typografie van het icoon */
+    font-size: 2rem;
+    line-height: 1; /* Zorgt dat het symbool mooi in het midden staat */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+  .menu-toggle {
+    display: none; 
+  }
+
+    /* Navigatiemenu TONEN op desktop (flex-direction: row; is belangrijk) */
+    .nav {
+        display: flex !important; 
+        flex-direction: row; 
+        width: auto;
+        gap: 5rem; /* Ruimte tussen de 'kaarten' in de navigatie */
+        margin-top: 0;
+        padding-bottom: 0;
+        /* Zorgt dat de nav links verticaal gecentreerd zijn */
+        align-items: center; 
+    }
+
+/* Standaard (Mobile-First): Navigatie is VERBORGEN */
+.nav {
+    display: none; 
+    flex-direction: column;
+    /* ... andere basis nav stijlen ... */
+}
+
+.nav a {
+    /* ... Mobiele styling blijft hetzelfde, maar gebruikt nu de nieuwe vars ... */
+    color: var(--clr-text-primary);
+    border-bottom: 1px solid var(--clr-dark-component);
+    transition: color 0.3s ease;
+}
+
+.nav {
+    display: none; 
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /* Zorg dat de links eruit zien als gewone tekst op mobiel */
+    background: none; 
+    padding: 0;
+}
+
+/* NIEUW: Deze klasse wordt door JavaScript toegevoegd als het menu open is */
+.nav.is-open {
+    display: flex;
+}
+
+/* Styling voor de links in de nav op mobiel */
+.nav a {
+    padding: 0.5rem 0;
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid #110ee7;
+    /* Verwijder de kaart-look op mobiel */
+    background: none; 
+}
