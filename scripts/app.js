@@ -1,3 +1,15 @@
+const toggleButton = document.querySelector('.menu-toggle');
+const nav = document.querySelector('.nav');
+
+toggleButton.addEventListener('click', () => {
+    // Schakel de klasse 'is-open' op het navigatie-element
+    nav.classList.toggle('is-open');
+
+    // Optioneel maar beter voor toegankelijkheid: update aria-expanded
+    const isExpanded = nav.classList.contains('is-open');
+    toggleButton.setAttribute('aria-expanded', isExpanded);
+});
+
 const formulier = document.querySelector('#taak-formulier');
 
 function getTaken() {
@@ -36,15 +48,3 @@ formulier.addEventListener('submit', function(event) {
 
 // Direct bij laden van de pagina
 toonItems();
-
-const toggleButton = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
-
-toggleButton.addEventListener('click', () => {
-    // Schakel de klasse 'is-open' op het navigatie-element
-    nav.classList.toggle('is-open');
-
-    // Optioneel maar beter voor toegankelijkheid: update aria-expanded
-    const isExpanded = nav.classList.contains('is-open');
-    toggleButton.setAttribute('aria-expanded', isExpanded);
-});
