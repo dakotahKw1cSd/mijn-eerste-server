@@ -99,6 +99,7 @@ function setLanguage(lang) {
         bar.dataset.day = days[lang][day];
     });
 
+    updateDate(lang);
     // knop tekst
     document.getElementById("taal-knop").innerText =
         lang === "nl" ? "English" : "Nederlands";
@@ -126,9 +127,30 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 document.querySelectorAll(".bar").forEach(bar => {
-    let value = bar.dataset.value;
-    bar.style.height = value + "%";
 
-    // hover info
-    bar.title = bar.dataset.label;
+    // 🧠 altijd originele waarde bewaren
+    if (!bar.dataset.originalDay) {
+        bar.dataset.originalDay = bar.dataset.day;
+    }
+
+    let original = bar.dataset.originalDay;
+
+    bar.dataset.day = days[lang][original] || original;
 });
+
+function updateDate(lang) {
+    const el = document.getElementById("app-date");
+
+    const today = new Date();
+
+    const locale = lang === "nl" ? "nl-NL" : "en-US";
+
+    const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    };
+
+    el.innerText = today.toLocaleDateString(locale, options);
+}
