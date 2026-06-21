@@ -1,7 +1,7 @@
 let currentLang = "nl";
 
 /* =========================
-   🌍 TRANSLATIONS
+       TRANSLATIONS
 ========================= */
 
 const translations = {
@@ -9,7 +9,7 @@ const translations = {
         "app-title": "Health Tracker",
         "activiteit-titel": "Nieuwe activiteit",
         "toevoegen-knop": "Toevoegen",
-        "weekly-title": "Weekelijkse voortgang",
+        "weekly-title": "Weekelijkse voortgang voor stappen",
         "weekly-sub": "Je activiteit per dag (0–100%)",
         "recent-titel": "Recente Activiteiten",
         "quick-title": "Snelle acties",
@@ -29,7 +29,7 @@ const translations = {
         "app-title": "Health Tracker",
         "activiteit-titel": "New activity",
         "toevoegen-knop": "Add",
-        "weekly-title": "Weekly Progress",
+        "weekly-title": "Weekly Progress for steps",
         "weekly-sub": "Your activity per day (0–100%)",
         "recent-titel": "Recent Activities",
         "quick-title": "Quick Actions",
@@ -48,7 +48,7 @@ const translations = {
 };
 
 /* =========================
-   📅 DAYS
+            DAYS
 ========================= */
 
 const days = {
@@ -57,7 +57,7 @@ const days = {
 };
 
 /* =========================
-   📅 DATE
+            DATE
 ========================= */
 
 function updateDate(lang) {
@@ -74,7 +74,7 @@ function updateDate(lang) {
 }
 
 /* =========================
-   🌍 LANGUAGE FUNCTION
+     LANGUAGE FUNCTION
 ========================= */
 
 function setLanguage(lang) {
@@ -112,7 +112,7 @@ function setLanguage(lang) {
 }
 
 /* =========================
-   🔘 BUTTON
+          BUTTON
 ========================= */
 
 document.getElementById("taal-knop").addEventListener("click", () => {
@@ -120,7 +120,7 @@ document.getElementById("taal-knop").addEventListener("click", () => {
 });
 
 /* =========================
-   📊 CHART
+          CHART
 ========================= */
 
 document.querySelectorAll(".bar").forEach(bar => {
@@ -129,7 +129,7 @@ document.querySelectorAll(".bar").forEach(bar => {
 });
 
 /* =========================
-   🚀 START
+          START
 ========================= */
 
 setLanguage("nl");
