@@ -154,3 +154,35 @@ if ("serviceWorker" in navigator) {
             });
     });
 }
+
+function berekenPercentage(huidig, totaal) {
+    return Math.round((huidig / totaal) * 100);
+}
+
+// Water
+let water = 6;
+let waterTotaal = 8;
+
+let waterPercent = berekenPercentage(water, waterTotaal);
+
+document.getElementById("water-ratio").innerText = `${water}/${waterTotaal}`;
+document.getElementById("water-bar").style.width = waterPercent + "%";
+
+// stappen
+let steps = 7842;
+let stepsGoal = 10000;
+
+let stepsPercent = berekenPercentage(steps, stepsGoal);
+
+document.querySelector(".health-card h3").innerText = steps.toLocaleString();
+document.querySelector(".health-card small").innerText = stepsGoal;
+document.querySelectorAll(".progress-bar")[1].style.width = stepsPercent + "%";
+
+
+document.querySelectorAll(".bar").forEach(bar => {
+    let value = bar.dataset.value;
+    bar.style.height = value + "%";
+
+    // laat extra info zien bij hover
+    bar.title = bar.dataset.label;
+});
