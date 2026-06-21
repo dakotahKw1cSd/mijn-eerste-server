@@ -1,8 +1,8 @@
-/* =========================
-   🌍 LANGUAGE SYSTEM
-========================= */
-
 let currentLang = "nl";
+
+/* =========================
+   🌍 TRANSLATIONS
+========================= */
 
 const translations = {
     nl: {
@@ -25,7 +25,6 @@ const translations = {
         "water-unit": "glazen",
         "sleep-sub": "gisteravond"
     },
-
     en: {
         "app-title": "Health Tracker",
         "activiteit-titel": "New activity",
@@ -48,29 +47,34 @@ const translations = {
     }
 };
 
+/* =========================
+   📅 DAYS
+========================= */
+
 const days = {
-    nl: {
-        Mon: "Ma",
-        Tue: "Di",
-        Wed: "Wo",
-        Thu: "Do",
-        Fri: "Vr",
-        Sat: "Za",
-        Sun: "Zo"
-    },
-    en: {
-        Mon: "Mon",
-        Tue: "Tue",
-        Wed: "Wed",
-        Thu: "Thu",
-        Fri: "Fri",
-        Sat: "Sat",
-        Sun: "Sun"
-    }
+    nl: { Mon:"Ma", Tue:"Di", Wed:"Wo", Thu:"Do", Fri:"Vr", Sat:"Za", Sun:"Zo" },
+    en: { Mon:"Mon", Tue:"Tue", Wed:"Wed", Thu:"Thu", Fri:"Fri", Sat:"Sat", Sun:"Sun" }
 };
 
 /* =========================
-   🌍 SET LANGUAGE FUNCTION
+   📅 DATE
+========================= */
+
+function updateDate(lang) {
+    const el = document.getElementById("app-date");
+
+    const locale = lang === "nl" ? "nl-NL" : "en-US";
+
+    el.innerText = new Date().toLocaleDateString(locale, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
+
+/* =========================
+   🌍 LANGUAGE FUNCTION
 ========================= */
 
 function setLanguage(lang) {
@@ -78,79 +82,54 @@ function setLanguage(lang) {
 
     const data = translations[lang];
 
-    // tekst vertalen
     for (let key in data) {
-        let el = document.getElementById(key);
+        const el = document.getElementById(key);
         if (el) el.innerText = data[key];
     }
 
     // input placeholder
     const input = document.getElementById("activiteit-input");
     if (input) {
-        input.placeholder =
-            lang === "nl"
-                ? "Wat ga je doen?"
-                : "What will you do?";
+        input.placeholder = lang === "nl"
+            ? "Wat ga je doen?"
+            : "What will you do?";
     }
 
-    // dagen van chart vertalen
+    // days fix (NO undefined)
     document.querySelectorAll(".bar").forEach(bar => {
-        let day = bar.dataset.day;
-        bar.dataset.day = days[lang][day];
+        if (!bar.dataset.originalDay) {
+            bar.dataset.originalDay = bar.dataset.day;
+        }
+
+        const original = bar.dataset.originalDay;
+        bar.dataset.day = days[lang][original] || original;
     });
 
     updateDate(lang);
-    // knop tekst
+
     document.getElementById("taal-knop").innerText =
         lang === "nl" ? "English" : "Nederlands";
 }
 
 /* =========================
-   🔘 LANGUAGE BUTTON
+   🔘 BUTTON
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("taal-knop").addEventListener("click", () => {
-        if (currentLang === "nl") {
-            setLanguage("en");
-        } else {
-            setLanguage("nl");
-        }
-    });
-
-    // start in NL
-    setLanguage("nl");
+document.getElementById("taal-knop").addEventListener("click", () => {
+    setLanguage(currentLang === "nl" ? "en" : "nl");
 });
 
 /* =========================
-   📊 WEEKLY CHART
+   📊 CHART
 ========================= */
 
 document.querySelectorAll(".bar").forEach(bar => {
-
-    // 🧠 altijd originele waarde bewaren
-    if (!bar.dataset.originalDay) {
-        bar.dataset.originalDay = bar.dataset.day;
-    }
-
-    let original = bar.dataset.originalDay;
-
-    bar.dataset.day = days[lang][original] || original;
+    bar.style.height = bar.dataset.value + "%";
+    bar.title = bar.dataset.label;
 });
 
-function updateDate(lang) {
-    const el = document.getElementById("app-date");
+/* =========================
+   🚀 START
+========================= */
 
-    const today = new Date();
-
-    const locale = lang === "nl" ? "nl-NL" : "en-US";
-
-    const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    };
-
-    el.innerText = today.toLocaleDateString(locale, options);
-}
+setLanguage("nl");
