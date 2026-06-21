@@ -1,188 +1,134 @@
+/* =========================
+   🌍 LANGUAGE SYSTEM
+========================= */
 
-const formulier =
-document.getElementById("activiteit-form");
+let currentLang = "nl";
 
-const lijst =
-document.getElementById("activiteiten-lijst");
-
-let activiteiten =
-JSON.parse(localStorage.getItem("activiteiten"))
-|| [];
-
-function toonActiviteiten() {
-
-    lijst.innerHTML = "";
-
-    activiteiten.forEach((item, index) => {
-
-        lijst.innerHTML += `
-            <li class="list-group-item d-flex justify-content-between">
-                ${item}
-                <button
-                    class="btn btn-danger btn-sm"
-                    onclick="verwijderActiviteit(${index})">
-                    X
-                </button>
-            </li>
-        `;
-    });
-}
-
-formulier.addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-    const input =
-    document.getElementById("activiteit-input");
-
-    activiteiten.push(input.value);
-
-    localStorage.setItem(
-        "activiteiten",
-        JSON.stringify(activiteiten)
-    );
-
-    input.value = "";
-
-    toonActiviteiten();
-
-});
-
-function verwijderActiviteit(index){
-
-    activiteiten.splice(index, 1);
-
-    localStorage.setItem(
-        "activiteiten",
-        JSON.stringify(activiteiten)
-    );
-
-    toonActiviteiten();
-}
-
-toonActiviteiten();
-
-const teksten = {
-
+const translations = {
     nl: {
-        activiteitTitel: "Nieuwe activiteit",
-        placeholder: "Wat ga je doen?",
-        toevoegen: "Toevoegen",
-        recent: "Recente Activiteiten",
-        home: "Home",
-        stats: "Statistieken",
-        profile: "Profiel",
-        taalKnop: "English"
+        "app-title": "Health Tracker",
+        "activiteit-titel": "Nieuwe activiteit",
+        "toevoegen-knop": "Toevoegen",
+        "weekly-title": "Weekelijkse voortgang",
+        "weekly-sub": "Je activiteit per dag (0–100%)",
+        "recent-titel": "Recente Activiteiten",
+        "quick-title": "Snelle acties",
+        "water-btn": "Water toevoegen",
+        "steps-btn": "Stappen toevoegen",
+        "home-link": "Home",
+        "stats-link": "Stats",
+        "profile-link": "Profiel",
+        "water-title": "Water",
+        "steps-title": "Stappen",
+        "sleep-title": "Slaap",
+        "weight-title": "Gewicht",
+        "water-unit": "glazen",
+        "sleep-sub": "gisteravond"
     },
 
     en: {
-        activiteitTitel: "New Activity",
-        placeholder: "What are you going to do?",
-        toevoegen: "Add",
-        recent: "Recent Activity",
-        home: "Home",
-        stats: "Statistics",
-        profile: "Profile",
-        taalKnop: "Nederlands"
+        "app-title": "Health Tracker",
+        "activiteit-titel": "New activity",
+        "toevoegen-knop": "Add",
+        "weekly-title": "Weekly Progress",
+        "weekly-sub": "Your activity per day (0–100%)",
+        "recent-titel": "Recent Activities",
+        "quick-title": "Quick Actions",
+        "water-btn": "Add Water",
+        "steps-btn": "Add Steps",
+        "home-link": "Home",
+        "stats-link": "Stats",
+        "profile-link": "Profile",
+        "water-title": "Water",
+        "steps-title": "Steps",
+        "sleep-title": "Sleep",
+        "weight-title": "Weight",
+        "water-unit": "glasses",
+        "sleep-sub": "last night"
     }
 };
 
-let taal =
-localStorage.getItem("taal") || "nl";
+const days = {
+    nl: {
+        Mon: "Ma",
+        Tue: "Di",
+        Wed: "Wo",
+        Thu: "Do",
+        Fri: "Vr",
+        Sat: "Za",
+        Sun: "Zo"
+    },
+    en: {
+        Mon: "Mon",
+        Tue: "Tue",
+        Wed: "Wed",
+        Thu: "Thu",
+        Fri: "Fri",
+        Sat: "Sat",
+        Sun: "Sun"
+    }
+};
 
-function veranderTaal() {
+/* =========================
+   🌍 SET LANGUAGE FUNCTION
+========================= */
 
-    document.getElementById("activiteit-titel")
-        .textContent =
-        teksten[taal].activiteitTitel;
+function setLanguage(lang) {
+    currentLang = lang;
 
-    document.getElementById("activiteit-input")
-        .placeholder =
-        teksten[taal].placeholder;
+    const data = translations[lang];
 
-    document.getElementById("toevoegen-knop")
-        .textContent =
-        teksten[taal].toevoegen;
+    // tekst vertalen
+    for (let key in data) {
+        let el = document.getElementById(key);
+        if (el) el.innerText = data[key];
+    }
 
-    document.getElementById("recent-titel")
-        .textContent =
-        teksten[taal].recent;
+    // input placeholder
+    const input = document.getElementById("activiteit-input");
+    if (input) {
+        input.placeholder =
+            lang === "nl"
+                ? "Wat ga je doen?"
+                : "What will you do?";
+    }
 
-    document.getElementById("home-link")
-        .textContent =
-        teksten[taal].home;
+    // dagen van chart vertalen
+    document.querySelectorAll(".bar").forEach(bar => {
+        let day = bar.dataset.day;
+        bar.dataset.day = days[lang][day];
+    });
 
-    document.getElementById("stats-link")
-        .textContent =
-        teksten[taal].stats;
-
-    document.getElementById("profile-link")
-        .textContent =
-        teksten[taal].profile;
-
-    document.getElementById("taal-knop")
-        .textContent =
-        teksten[taal].taalKnop;
+    // knop tekst
+    document.getElementById("taal-knop").innerText =
+        lang === "nl" ? "English" : "Nederlands";
 }
 
-document
-.getElementById("taal-knop")
-.addEventListener("click", () => {
+/* =========================
+   🔘 LANGUAGE BUTTON
+========================= */
 
-    taal = taal === "nl"
-        ? "en"
-        : "nl";
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("taal-knop").addEventListener("click", () => {
+        if (currentLang === "nl") {
+            setLanguage("en");
+        } else {
+            setLanguage("nl");
+        }
+    });
 
-    localStorage.setItem(
-        "taal",
-        taal
-    );
-
-    veranderTaal();
+    // start in NL
+    setLanguage("nl");
 });
 
-veranderTaal();
-
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js")
-            .then(() => {
-                console.log("Service Worker geregistreerd");
-            })
-            .catch(err => {
-                console.log("SW fout:", err);
-            });
-    });
-}
-
-function berekenPercentage(huidig, totaal) {
-    return Math.round((huidig / totaal) * 100);
-}
-
-// Water
-let water = 6;
-let waterTotaal = 8;
-
-let waterPercent = berekenPercentage(water, waterTotaal);
-
-document.getElementById("water-ratio").innerText = `${water}/${waterTotaal}`;
-document.getElementById("water-bar").style.width = waterPercent + "%";
-
-// stappen
-let steps = 7842;
-let stepsGoal = 10000;
-
-let stepsPercent = berekenPercentage(steps, stepsGoal);
-
-document.querySelector(".health-card h3").innerText = steps.toLocaleString();
-document.querySelector(".health-card small").innerText = stepsGoal;
-document.querySelectorAll(".progress-bar")[1].style.width = stepsPercent + "%";
-
+/* =========================
+   📊 WEEKLY CHART
+========================= */
 
 document.querySelectorAll(".bar").forEach(bar => {
     let value = bar.dataset.value;
     bar.style.height = value + "%";
 
-    // laat extra info zien bij hover
+    // hover info
     bar.title = bar.dataset.label;
 });
