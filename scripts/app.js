@@ -1,5 +1,5 @@
 /* =========================
-   🌍 TAAL
+    TAAL
 ========================= */
 
 let currentLang = "nl";
@@ -69,7 +69,7 @@ const days = {
 };
 
 /* =========================
-   📅 DATUM
+   DATUM
 ========================= */
 
 function updateDate(lang) {
@@ -88,7 +88,7 @@ function updateDate(lang) {
 }
 
 /* =========================
-   🌍 TAAL FUNCTIE
+    TAAL FUNCTIE
 ========================= */
 
 function setLanguage(lang) {
@@ -137,7 +137,7 @@ function setLanguage(lang) {
 }
 
 /* =========================
-   📝 CRUD ACTIVITEITEN
+    CRUD ACTIVITEITEN
 ========================= */
 
 function getActiviteiten() {
@@ -194,7 +194,7 @@ function toonActiviteiten() {
 }
 
 /* =========================
-   🚀 START
+    START
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
